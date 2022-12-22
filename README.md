@@ -71,6 +71,8 @@ TODO: ADD HERE
 
 * [PyCharm](https://www.jetbrains.com/pycharm/)
 * [Vim](https://www.vim.org/)
+* [Tensorflow](https://www.tensorflow.org/)
+* [TFDS CLI](https://www.tensorflow.org/datasets/cli)
 
 
 
@@ -93,6 +95,22 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/TristanBandat/genre-prediction-video.git
    ```
+
+2. Download the data files:<br>
+   _Note: The files need to be placed in a folder called `data/`._
+   * [id_vgg19.tsv.bz2](https://zenodo.org/record/6609677/files/id_vgg19.tsv.bz2?download=1)
+   * [id_resnet.tsv.bz2](https://zenodo.org/record/6609677/files/id_resnet.tsv.bz2?download=1)
+   * [id_incp.tsv.bz2](https://zenodo.org/record/6609677/files/id_incp.tsv.bz2?download=1)
+   * [id_genres_tf-idf.tsv.bz2](https://zenodo.org/record/6609677/files/id_genres_tf-idf.tsv.bz2?download=1)
+
+3. Create dataset<br>
+   ```shell
+   cd datasets/Music4AllOnionDC/
+   tfds build Music4AllOnionDC.py --data_dir [CWD]/data/
+   ```
+   
+
+
 TODO: ADD HERE
 
 
