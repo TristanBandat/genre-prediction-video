@@ -5,16 +5,9 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 
-# TODO(Music4AllOnionDC): Markdown description  that will appear on the catalog page.
 _DESCRIPTION = """
-Description is **formatted** as markdown.
-
-It should also contain any processing which has been applied (if any),
-(e.g. corrupted example skipped, images cropped,...):
-"""
-
-# TODO(Music4AllOnionDC): BibTeX citation
-_CITATION = """
+Music4AllOnion DC layer dataset with INCP vectors.
+Train/Test/Validation = 80% / 10% / 10%
 """
 
 
@@ -22,9 +15,9 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     """
         DatasetBuilder for Music4AllOnionDC dataset.
     """
-    VERSION = tfds.core.Version('1.0.0')
+    VERSION = tfds.core.Version('1.0.1')
     RELEASE_NOTES = {
-        '1.0.0': 'Initial release.',
+        '1.0.1': 'Add test and validation set.',
     }
 
     def _info(self) -> tfds.core.DatasetInfo:
@@ -47,17 +40,23 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
 
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Returns SplitGenerators."""
-        path = '../data/'
+        path = '../../data/'
+        paths = [path + 'id_incp.tsv', path + 'id_genres_binary.tsv']
+        splits = [0.8, 0.1, 0.1]
+        input_df = pd.read_csv(paths[0], sep='\t')
+        labels_df = pd.read_csv(paths[1], sep='\t')
+        train, test, valid = np.split(input_df, [int(splits[0] * len(input_df)),
+                                                 int((splits[0]+splits[1]) * len(input_df))])
 
         return {
-            'train': self._generate_examples([path + 'id_incp.tsv', path + 'id_genres_binary.tsv']),
+            'train': self._generate_examples(train, labels_df),
+            'test': self._generate_examples(test, labels_df),
+            'valid': self._generate_examples(valid, labels_df),
         }
 
-    def _generate_examples(self, path):
+    def _generate_examples(self, df, labels_df):
         """Yields examples."""
-        input_df = pd.read_csv(path[0], sep='\t')
-        labels_df = pd.read_csv(path[1], sep='\t')
-        for i, line in input_df.iterrows():
+        for i, line in df.iterrows():
             yield i, {
                 'input': line[1:].to_numpy(dtype=np.float32),
                 'label': labels_df[labels_df['id'] == line['id']].T[2:].T.to_numpy(dtype=np.float32)[0],
