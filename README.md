@@ -73,6 +73,7 @@ TODO: ADD HERE
 * [Vim](https://www.vim.org/)
 * [Tensorflow](https://www.tensorflow.org/)
 * [TFDS CLI](https://www.tensorflow.org/datasets/cli)
+* [Anaconda](https://www.anaconda.com/)
 
 
 
@@ -91,19 +92,51 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Clone the repo
-   ```sh
+1. Python Env Setup <br>
+   1. Windows 
+      1. Install [Anaconda](https://www.anaconda.com/)
+      2. Open Anaconda Prompt and type:
+         ```shell
+         conda update -n base -c defaults conda
+         conda create --name Python3.10 python=3.10
+         conda activate Python3.10
+         conda install pandas matplotlib numpy
+         pip install tensorflow-datasets
+         python -m pip install "tensorflow<2.11"
+         ```
+      3. If a GPU is available, it should be listed with the following command:
+         ```shell
+         python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+         ```
+   2. Ubuntu
+      1. Install Anaconda like stated [here](https://docs.anaconda.com/anaconda/install/linux/)
+      2. Open terminal and type:
+         ```shell
+         conda create --name Python3.10 python=3.10
+         conda activate Python3.10
+         conda install pandas matplotlib numpy
+         conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+         python3 -m pip install tensorflow tensorflow-datasets
+         ```
+      3. If a GPU is available, it should be listed with the following command:
+         ```shell
+         python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+         ```
+
+2. Clone the repo
+   ```shell
    git clone https://github.com/TristanBandat/genre-prediction-video.git
    ```
 
-2. Download the data files:<br>
+3. Download the data files:<br>
    _Note: The files need to be placed in a folder called `data/`._
    * [id_vgg19.tsv.bz2](https://zenodo.org/record/6609677/files/id_vgg19.tsv.bz2?download=1)
    * [id_resnet.tsv.bz2](https://zenodo.org/record/6609677/files/id_resnet.tsv.bz2?download=1)
    * [id_incp.tsv.bz2](https://zenodo.org/record/6609677/files/id_incp.tsv.bz2?download=1)
    * [id_genres_tf-idf.tsv.bz2](https://zenodo.org/record/6609677/files/id_genres_tf-idf.tsv.bz2?download=1)
 
-3. Create dataset<br>
+4. Create dataset<br>
    ```shell
    cd datasets/Music4AllOnionDC/
    tfds build Music4AllOnionDC.py --data_dir [CWD]/data/
