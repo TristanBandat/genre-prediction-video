@@ -1,23 +1,37 @@
 import pandas as pd
-# import data.music4_all_onion_dc
 import tensorflow_datasets as tfds
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import matplotlib.pyplot as plt
 
 
 def main():
-    ds = tfds.load('music4_all_onion_dc', data_dir='data/')['train']
-    for elem in ds:
-        print(elem['input'].numpy())
-    # filename_incp = 'data/id_incp.tsv'
-    # filename_labels = 'data/id_genres_binary.tsv'
-    # incp_df = pd.read_csv(filename_incp, sep='\t')
-    # labels_df = pd.read_csv(filename_labels, sep='\t')
-    # for i, line in labels_df.iterrows():
-    #     test = labels_df[labels_df['id'] == line['id']][1:]
-    #     indices = line.to_numpy()[1:].nonzero()
-    #     for index in indices:
-    #         labels_df.at[i, labels_df.columns[index+1]] = 1.0
-    # labels_df.to_csv('data/id_genres_binary.tsv', sep='\t')
+    # tf.debugging.set_log_device_placement(True)
 
+    train_ds = tfds.load('music4_all_onion_dc:1.0.1', data_dir='data/', batch_size=64,
+                         as_supervised=True, split='train')
+    test_ds = tfds.load('music4_all_onion_dc:1.0.1', data_dir='data/', batch_size=64,
+                        as_supervised=True, split='test')
+    valid_ds = tfds.load('music4_all_onion_dc:1.0.1', data_dir='data/', batch_size=64,
+                         as_supervised=True, split='valid')
+    # plt.figure(figsize=(10, 10))
+    # for element in ds:
+    #     for i in range(9):
+    #         ax = plt.subplot(3, 3, i + 1)
+    #         plt.plot(element['input'][i].numpy())
+    #         plt.title(f'Input: {i}')
+    #         plt.axis("off")
+    #     break
+    # plt.show()
+
+    input_layer = keras.Input(shape=(4096,), name='input')
+    hidden_layer = layers.Dense(32000, activation='relu')(input_layer)
+    output_layer = layers.Dense(685, activation='sigmoid')(hidden_layer)
+    model = keras.Model(input_layer, output_layer)
+    model.compile("adam", "mean_squared_error", metrics=["accuracy"])
+    # keras.utils.plot_model(model, show_shapes=True, rankdir="LR")
+    model.fit(train_ds, epochs=2)
     pass
 
 
