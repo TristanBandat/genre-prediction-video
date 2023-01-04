@@ -174,8 +174,6 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-_Note: Look into the TODO file for open features and in which release they will be included._
-
 
 
 <!-- LICENSE -->
