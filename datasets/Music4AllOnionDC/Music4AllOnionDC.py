@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 _DESCRIPTION = """
-Music4AllOnion DC layer dataset with RESNET vectors.
+Music4AllOnion DC layer dataset with VGG19 vectors.
 Train/Test/Validation = 80% / 10% / 10%
 """
 
@@ -15,9 +15,9 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     """
         DatasetBuilder for Music4AllOnionDC dataset.
     """
-    VERSION = tfds.core.Version('2.0.0')
+    VERSION = tfds.core.Version('3.0.0')
     RELEASE_NOTES = {
-        '2.0.0': 'Dataset with RESNET vectors.',
+        '2.0.0': 'Dataset with VGG19 vectors.',
     }
 
     def _info(self) -> tfds.core.DatasetInfo:
@@ -27,7 +27,7 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
             description=_DESCRIPTION,
             features=tfds.features.FeaturesDict({
                 # These are the features of your dataset like images, labels ...
-                'input': tfds.features.Tensor(shape=(4096,), dtype=tf.float32),
+                'input': tfds.features.Tensor(shape=(8192,), dtype=tf.float32),
                 'label': tfds.features.Tensor(shape=(685,), dtype=tf.float32),
             }),
             # If there's a common (input, target) tuple from the
@@ -41,7 +41,7 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Returns SplitGenerators."""
         path = '../../data/'
-        paths = [path + 'id_resnet.tsv', path + 'id_genres_binary.tsv']
+        paths = [path + 'id_vgg19.tsv', path + 'id_genres_binary.tsv']
         splits = [0.8, 0.1, 0.1]
         input_df = pd.read_csv(paths[0], sep='\t')
         labels_df = pd.read_csv(paths[1], sep='\t')
