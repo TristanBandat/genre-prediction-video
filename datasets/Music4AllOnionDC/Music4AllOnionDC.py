@@ -8,6 +8,7 @@ import numpy as np
 _DESCRIPTION = """
 Music4AllOnion DC layer dataset with compressed VGG19 vectors.
 Train/Test/Validation = 80% / 10% / 10%
+Shape scaled to (4096, 3).
 """
 
 
@@ -15,9 +16,9 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     """
         DatasetBuilder for Music4AllOnionDC dataset.
     """
-    VERSION = tfds.core.Version('3.0.1')
+    VERSION = tfds.core.Version('3.0.2')
     RELEASE_NOTES = {
-        '3.0.1': 'Dataset with compressed VGG19 vectors.',
+        '3.0.2': 'Dataset with compressed VGG19 vectors scaled to 3 dims.',
     }
 
     def _info(self) -> tfds.core.DatasetInfo:
@@ -27,7 +28,7 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
             description=_DESCRIPTION,
             features=tfds.features.FeaturesDict({
                 # These are the features of your dataset like images, labels ...
-                'input': tfds.features.Tensor(shape=(4096,), dtype=np.float32),
+                'input': tfds.features.Tensor(shape=(64, 64, 3), dtype=np.float32),
                 'label': tfds.features.Tensor(shape=(685,), dtype=np.float32),
             }),
             # If there's a common (input, target) tuple from the
@@ -68,9 +69,10 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
                 else:
                     mean = np.mean(vgg19_data[j:j + 2])
                     compressed_data.append(mean)
-            vgg19_data = np.asarray(compressed_data)
+            vgg19_data = np.asarray(compressed_data).reshape((64, 64))
+            img_data = np.repeat(np.expand_dims(vgg19_data, axis=2), 3, axis=2)
 
             yield i, {
-                'input': vgg19_data,
+                'input': img_data,
                 'label': labels_df[labels_df['id'] == line['id']].T[2:].T.to_numpy(dtype=np.float32)[0],
             }
