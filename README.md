@@ -6,9 +6,8 @@
 [![closed Pull Requests][closed_pulls-shield]][closed_pulls-url]
 [![closed Issues][closed_issues-shield]][closed_issues-url]
 
-
-
 <!-- PROJECT LOGO -->
+
 <p align="center">
   <!-- <a href="https://github.com/TristanBandat/genre-prediction-video">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
@@ -28,9 +27,8 @@
   </p>
 <!-- </p> -->
 
-
-
 <!-- TABLE OF CONTENTS -->
+
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
@@ -56,16 +54,14 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
 The goal of this project is to create a 
 TODO: ADD HERE
-
 
 ### Built With
 
@@ -75,9 +71,8 @@ TODO: ADD HERE
 * [TFDS CLI](https://www.tensorflow.org/datasets/cli)
 * [Anaconda](https://www.anaconda.com/)
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -93,9 +88,13 @@ This is an example of how to list things you need to use the software and how to
 ### Installation
 
 1. Python Env Setup <br>
+   
    1. Windows 
+      
       1. Install [Anaconda](https://www.anaconda.com/)
+      
       2. Open Anaconda Prompt and type:
+         
          ```shell
          conda update -n base -c defaults conda
          conda create --name Python3.10 python=3.10
@@ -104,13 +103,19 @@ This is an example of how to list things you need to use the software and how to
          pip install tensorflow-datasets
          python -m pip install "tensorflow<2.11"
          ```
+      
       3. If a GPU is available, it should be listed with the following command:
+         
          ```shell
          python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
          ```
+   
    2. Ubuntu
+      
       1. Install Anaconda like stated [here](https://docs.anaconda.com/anaconda/install/linux/)
+      
       2. Open terminal and type:
+         
          ```shell
          conda create --name Python3.10 python=3.10
          conda activate Python3.10
@@ -119,50 +124,50 @@ This is an example of how to list things you need to use the software and how to
          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
          python3 -m pip install tensorflow tensorflow-datasets
          ```
+      
       3. If a GPU is available, it should be listed with the following command:
+         
          ```shell
          python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
          ```
 
 2. Clone the repo
+   
    ```shell
    git clone https://github.com/TristanBandat/genre-prediction-video.git
    ```
 
 3. Download the data files:<br>
    _Note: The files need to be placed in a folder called `data/`._
+   
    * [id_vgg19.tsv.bz2](https://zenodo.org/record/6609677/files/id_vgg19.tsv.bz2?download=1)
    * [id_resnet.tsv.bz2](https://zenodo.org/record/6609677/files/id_resnet.tsv.bz2?download=1)
    * [id_incp.tsv.bz2](https://zenodo.org/record/6609677/files/id_incp.tsv.bz2?download=1)
    * [id_genres_tf-idf.tsv.bz2](https://zenodo.org/record/6609677/files/id_genres_tf-idf.tsv.bz2?download=1)
 
 4. Create dataset<br>
+   
    ```shell
    cd datasets/Music4AllOnionDC/
    tfds build Music4AllOnionDC.py --data_dir [CWD]/data/
    ```
-   
-
 
 TODO: ADD HERE
 
-
-   
-
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
 TODO: ADD HERE
 
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/TristanBandat/genre-prediction-video/issues) for a list of proposed features (and known issues).
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create.<br> 
@@ -174,26 +179,20 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-_Note: Look into the TODO file for open features and in which release they will be included._
-
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Tristan Bandat - [@TBandat](https://twitter.com/TBandat) - tristan.bandat@gmail.com
 Philipp Meingaßner - p.meingassner@gmail.com
 
 Project Link: [https://github.com/TristanBandat/genre-prediction-video](https://github.com/TristanBandat/genre-prediction-video)
-
-
 
 <!-- ACKNOWLEDGEMENTS 
 ## Acknowledgements
@@ -204,10 +203,10 @@ Project Link: [https://github.com/TristanBandat/genre-prediction-video](https://
 
 -->
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
+
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/TristanBandat/genre-prediction-video.svg?style=for-the-badge
 [contributors-url]: https://github.com/TristanBandat/genre-prediction-video/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/TristanBandat/genre-prediction-video.svg?style=for-the-badge

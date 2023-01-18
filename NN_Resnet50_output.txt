@@ -1,0 +1,39 @@
+NN_Resnet50.py
+
+Epoch 1/10
+2472/2472 [==============================] - 65s 24ms/step - loss: 0.0154 - accuracy: 0.0938 - val_loss: 0.0159 - val_accuracy: 0.0969
+Epoch 2/10
+2472/2472 [==============================] - 58s 24ms/step - loss: 0.0144 - accuracy: 0.1026 - val_loss: 0.0168 - val_accuracy: 0.0959
+Epoch 3/10
+2472/2472 [==============================] - 58s 24ms/step - loss: 0.0142 - accuracy: 0.1062 - val_loss: 0.0157 - val_accuracy: 0.1086
+Epoch 4/10
+2472/2472 [==============================] - 59s 24ms/step - loss: 0.0140 - accuracy: 0.1087 - val_loss: 0.0149 - val_accuracy: 0.1006
+Epoch 5/10
+2472/2472 [==============================] - 59s 24ms/step - loss: 0.0138 - accuracy: 0.1114 - val_loss: 0.0149 - val_accuracy: 0.1009
+Epoch 6/10
+2472/2472 [==============================] - 59s 24ms/step - loss: 0.0137 - accuracy: 0.1135 - val_loss: 0.0149 - val_accuracy: 0.0884
+Epoch 7/10
+2472/2472 [==============================] - 58s 24ms/step - loss: 0.0135 - accuracy: 0.1150 - val_loss: 0.0150 - val_accuracy: 0.0930
+Epoch 8/10
+2472/2472 [==============================] - 59s 24ms/step - loss: 0.0134 - accuracy: 0.1168 - val_loss: 0.0150 - val_accuracy: 0.1017
+Epoch 9/10
+2472/2472 [==============================] - 59s 24ms/step - loss: 0.0133 - accuracy: 0.1191 - val_loss: 0.0152 - val_accuracy: 0.0978
+Epoch 10/10
+2472/2472 [==============================] - 59s 24ms/step - loss: 0.0132 - accuracy: 0.1221 - val_loss: 0.0153 - val_accuracy: 0.0956
+309/309 [==============================] - 4s 13ms/step - loss: 0.0152 - accuracy: 0.0950
+ResNet TL NN (vgg19 with 64x64x3): 0.09496359527111053
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ resnet50 (Functional)       (None, 2, 2, 2048)        23587712  
+                                                                 
+ flatten (Flatten)           (None, 8192)              0         
+                                                                 
+ dense (Dense)               (None, 685)               5612205   
+                                                                 
+=================================================================
+Total params: 29,199,917
+Trainable params: 20,588,205
+Non-trainable params: 8,611,712
+_________________________________________________________________

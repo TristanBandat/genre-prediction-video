@@ -1,5 +1,6 @@
 # Dataset folders
 data/
+tl_resnet_weights.h5
 
 # Pictures
 *.png
