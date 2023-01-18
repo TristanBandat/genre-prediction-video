@@ -45,7 +45,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#models">Models</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -152,13 +152,57 @@ This is an example of how to list things you need to use the software and how to
    tfds build Music4AllOnionDC.py --data_dir [CWD]/data/
    ```
 
-TODO: ADD HERE
-
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## Models
 
-TODO: ADD HERE
+- k-Nearest Neighbor
+  
+  We tried different values but k=3 gave the best result.
+  
+  * Test accuracy (INCP vectors): 12.97%
+  
+  * Test accuracy (ResNet vectors): 13.26%
+  
+  * Test accuracy (VGG19 vectors): 12.49%
+
+- Decision Tree
+  
+  Because of the huge computational power needed for this model,
+  
+  the test set was used for both training and testing.
+  
+  * Test accuracy (INCP vectors): 6.91%
+  
+  * Test accuracy (ResNet vectors): 6.52%
+  
+  * Test accuracy (VGG19 vectors): 7.95%
+
+- Simple Neural Network
+  
+  TODO: ADD HERE
+  
+  * Test accuracy (INCP vectors): 17.07%
+  
+  * Test accuracy (ResNet vectors): 16.09%
+  
+  - Test accuracy (VGG19 vectors): 14.49%
+
+- Deep Neural Network
+  
+  * Test accuracy (INCP vectors): %
+  
+  - Test accuracy (ResNet vectors): %
+  
+  - Test accuracy (VGG19 vectors): %
+
+- LSTM
+  
+  
+
+- ResNet50 with Transfer Learning
+
+- 
 
 <!-- ROADMAP -->
 
