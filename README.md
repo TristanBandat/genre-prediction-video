@@ -185,22 +185,32 @@ This is an example of how to list things you need to use the software and how to
   * Test accuracy (INCP vectors): 17.07%
   
   * Test accuracy (ResNet vectors): 16.09%
-  
   - Test accuracy (VGG19 vectors): 14.49%
 
 - Deep Neural Network
   
-  * Test accuracy (INCP vectors): %
+  Same as the simple NN but with 20 smaller hidden layers.
   
-  - Test accuracy (ResNet vectors): %
+  * Test accuracy (INCP vectors): 7.35%
+  - Test accuracy (ResNet vectors): 9.14%
   
-  - Test accuracy (VGG19 vectors): %
+  - Test accuracy (VGG19 vectors): 7.35%
 
 - LSTM
   
+  TODO: ADD HERE
   
+  - Test accuracy (INCP vectors): 7.35%
+  
+  - Test accuracy (ResNet vectors): 7.35%
+  
+  - Test accuracy (VGG19 vectors): 7.35%
 
 - ResNet50 with Transfer Learning
+  
+  TODO: ADD HERE
+  
+  - Test accuracy (VGG19 vectors): 10.47%
 
 - 
 
