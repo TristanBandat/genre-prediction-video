@@ -160,24 +160,17 @@ This is an example of how to list things you need to use the software and how to
 
 ## Dataset versions
 
-1. Version 1.0.1
-   INCP vectors with shape (4096,) and labels with shape (685,).
+1. Version 1.0.1<br>INCP vectors with shape (4096,) and labels with shape (685,).
 
-2. Version 2.0.0
-   ResNet vectors with shape (4096,) and labels with shape (685,).
+2. Version 2.0.0<br>ResNet vectors with shape (4096,) and labels with shape (685,).
 
-3. Version 3.0.0
-   VGG19 vectors with shape (8192,) and labels with shape (685,).
+3. Version 3.0.0<br>VGG19 vectors with shape (8192,) and labels with shape (685,).
 
-4. Version 3.0.1
-   VGG19 vectors with shape (4096,) and labels with shape (685,).
+4. Version 3.0.1<br>VGG19 vectors with shape (4096,) and labels with shape (685,).
    The compression was achieved by taking the mean of 2 mean values and the maximum for 2 max values each for each data point.
 
-5. Version 3.0.2
-   VGG19 vectors with shape (64, 64, 3) and labels with shape (685,).
+5. Version 3.0.2<br>VGG19 vectors with shape (64, 64, 3) and labels with shape (685,).
    The datapoints of version 3.0.1 were reshaped to (64, 64) and then repeated 3 times to fit the ResNet50 input shape.
-
-
 
 ## Models
 
