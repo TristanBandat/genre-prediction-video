@@ -6,9 +6,8 @@
 [![closed Pull Requests][closed_pulls-shield]][closed_pulls-url]
 [![closed Issues][closed_issues-shield]][closed_issues-url]
 
-
-
 <!-- PROJECT LOGO -->
+
 <p align="center">
   <!-- <a href="https://github.com/TristanBandat/genre-prediction-video">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
@@ -28,9 +27,8 @@
   </p>
 <!-- </p> -->
 
-
-
 <!-- TABLE OF CONTENTS -->
+
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
@@ -47,7 +45,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#datasets">Dataset Versions</a></li>
+    <li><a href="#models">Models</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -56,25 +55,28 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-The goal of this project is to create a 
-TODO: ADD HERE
+The goal of this project is to predict the music genre of the vectorized music videos of the [Music4AllOnion](https://zenodo.org/record/6609677/#.Y85AXXbMJaY) dataset. After approaches like k-Nearest Neighbor or a simple Neural Network in order to verify the correct usage of the dataset.
 
+The main idea to predict the music genre is to make a multi-label prediction with Transfer Learning using a ResNet50 model. To fit the input shape, the vectors will be reshaped to tensors with (64, 64, 3) values. 
+
+This project is based on the paper Moscati, Marta & Deldjoo, Yashar & Schedl, Markus & Parada-Cabaleiro, Emilia & Zangerle, Eva. (2022). Music4All-Onion — A Large-Scale Multi-faceted Content-Centric Music Recommendation Dataset. 
 
 ### Built With
 
 * [PyCharm](https://www.jetbrains.com/pycharm/)
 * [Vim](https://www.vim.org/)
-
-
+* [Tensorflow](https://www.tensorflow.org/)
+* [TFDS CLI](https://www.tensorflow.org/datasets/cli)
+* [Anaconda](https://www.anaconda.com/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
@@ -89,29 +91,153 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Clone the repo
-   ```sh
+1. Python Env Setup <br>
+   
+   1. Windows 
+      
+      1. Install [Anaconda](https://www.anaconda.com/)
+      
+      2. Open Anaconda Prompt and type:
+         
+         ```shell
+         conda update -n base -c defaults conda
+         conda create --name Python3.10 python=3.10
+         conda activate Python3.10
+         conda install pandas matplotlib numpy
+         pip install tensorflow-datasets
+         python -m pip install "tensorflow<2.11"
+         ```
+      
+      3. If a GPU is available, it should be listed with the following command:
+         
+         ```shell
+         python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+         ```
+   
+   2. Ubuntu
+      
+      1. Install Anaconda like stated [here](https://docs.anaconda.com/anaconda/install/linux/)
+      
+      2. Open terminal and type:
+         
+         ```shell
+         conda create --name Python3.10 python=3.10
+         conda activate Python3.10
+         conda install pandas matplotlib numpy
+         conda install -c conda-forge cudatoolkit=11.2 cudnn=8.1.0
+         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/
+         python3 -m pip install tensorflow tensorflow-datasets
+         ```
+      
+      3. If a GPU is available, it should be listed with the following command:
+         
+         ```shell
+         python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+         ```
+
+2. Clone the repo
+   
+   ```shell
    git clone https://github.com/TristanBandat/genre-prediction-video.git
    ```
-TODO: ADD HERE
 
-
+3. Download the data files:<br>
+   _Note: The files need to be placed in a folder called `data/`._
    
+   * [id_vgg19.tsv.bz2](https://zenodo.org/record/6609677/files/id_vgg19.tsv.bz2?download=1)
+   * [id_resnet.tsv.bz2](https://zenodo.org/record/6609677/files/id_resnet.tsv.bz2?download=1)
+   * [id_incp.tsv.bz2](https://zenodo.org/record/6609677/files/id_incp.tsv.bz2?download=1)
+   * [id_genres_tf-idf.tsv.bz2](https://zenodo.org/record/6609677/files/id_genres_tf-idf.tsv.bz2?download=1)
+
+4. Create dataset<br>
+   
+   ```shell
+   cd datasets/Music4AllOnionDC/
+   tfds build Music4AllOnionDC.py --data_dir [CWD]/data/
+   ```
 
 <!-- USAGE EXAMPLES -->
-## Usage
 
-TODO: ADD HERE
+## Dataset versions
 
+1. Version 1.0.1<br>INCP vectors with shape (4096,) and labels with shape (685,).
+
+2. Version 2.0.0<br>ResNet vectors with shape (4096,) and labels with shape (685,).
+
+3. Version 3.0.0<br>VGG19 vectors with shape (8192,) and labels with shape (685,).
+
+4. Version 3.0.1<br>VGG19 vectors with shape (4096,) and labels with shape (685,).
+   The compression was achieved by taking the mean of 2 mean values and the maximum for 2 max values each for each data point.
+
+5. Version 3.0.2<br>VGG19 vectors with shape (64, 64, 3) and labels with shape (685,).
+   The datapoints of version 3.0.1 were reshaped to (64, 64) and then repeated 3 times to fit the ResNet50 input shape.
+
+## Models
+
+- k-Nearest Neighbor
+  
+  We tried different values but k=3 gave the best result.
+  
+  * Test accuracy (INCP vectors): 12.97%
+  
+  * Test accuracy (ResNet vectors): 13.26%
+  
+  * Test accuracy (VGG19 vectors): 12.49%
+
+- Decision Tree
+  
+  Because of the huge computational power needed for this model,
+  
+  the test set was used for both training and testing.
+  
+  * Test accuracy (INCP vectors): 6.91%
+  
+  * Test accuracy (ResNet vectors): 6.52%
+  
+  * Test accuracy (VGG19 vectors): 7.95%
+
+- Simple Neural Network
+  
+  Very simple NN with one big hidden layer.
+  
+  * Test accuracy (INCP vectors): 17.07%
+  
+  * Test accuracy (ResNet vectors): 16.09%
+  - Test accuracy (VGG19 vectors): 14.49%
+
+- Deep Neural Network
+  
+  Same as the simple NN but with 20 smaller hidden layers.
+  
+  * Test accuracy (INCP vectors): 7.35%
+  - Test accuracy (ResNet vectors): 9.14%
+  
+  - Test accuracy (VGG19 vectors): 7.35%
+
+- LSTM
+  
+  A Model with 2 LSTM and 2 dense hidden layers.
+  
+  - Test accuracy (INCP vectors): 7.35%
+  
+  - Test accuracy (ResNet vectors): 7.35%
+  
+  - Test accuracy (VGG19 vectors): 7.35%
+
+- ResNet50 with Transfer Learning
+  
+  The ResNet50 with an additional output layer to fit the output shape.
+  
+  - Test accuracy (VGG19 vectors): 10.47%
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
 See the [open issues](https://github.com/TristanBandat/genre-prediction-video/issues) for a list of proposed features (and known issues).
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create.<br> 
@@ -123,26 +249,21 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-_Note: Look into the TODO file for open features and in which release they will be included._
-
-
+_Note: The Project was done as part of a AI Bachelor course and it may not be maintained very well!_
 
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
-Tristan Bandat - [@TBandat](https://twitter.com/TBandat) - tristan.bandat@gmail.com
-Philipp Meingaßner - p.meingassner@gmail.com
+Tristan Bandat - [@TBandat](https://twitter.com/TBandat) - tristan.bandat@gmail.com <br>Philipp Meingaßner - p.meingassner@gmail.com
 
 Project Link: [https://github.com/TristanBandat/genre-prediction-video](https://github.com/TristanBandat/genre-prediction-video)
-
-
 
 <!-- ACKNOWLEDGEMENTS 
 ## Acknowledgements
@@ -153,10 +274,10 @@ Project Link: [https://github.com/TristanBandat/genre-prediction-video](https://
 
 -->
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
+
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/TristanBandat/genre-prediction-video.svg?style=for-the-badge
 [contributors-url]: https://github.com/TristanBandat/genre-prediction-video/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/TristanBandat/genre-prediction-video.svg?style=for-the-badge
