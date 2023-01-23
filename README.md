@@ -60,8 +60,11 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-The goal of this project is to create a 
-TODO: ADD HERE
+The goal of this project is to predict the music genre of the vectorized music videos of the [Music4AllOnion](https://zenodo.org/record/6609677/#.Y85AXXbMJaY) dataset. After approaches like k-Nearest Neighbor or a simple Neural Network in order to verify the correct usage of the dataset.
+
+The main idea to predict the music genre is to make a multi-label prediction with Transfer Learning using a ResNet50 model. To fit the input shape, the vectors will be reshaped to tensors with (64, 64, 3) values. 
+
+This project is based on the paper Moscati, Marta & Deldjoo, Yashar & Schedl, Markus & Parada-Cabaleiro, Emilia & Zangerle, Eva. (2022). Music4All-Onion — A Large-Scale Multi-faceted Content-Centric Music Recommendation Dataset. 
 
 ### Built With
 
@@ -180,7 +183,7 @@ This is an example of how to list things you need to use the software and how to
 
 - Simple Neural Network
   
-  TODO: ADD HERE
+  Very simple NN with one big hidden layer.
   
   * Test accuracy (INCP vectors): 17.07%
   
@@ -198,7 +201,7 @@ This is an example of how to list things you need to use the software and how to
 
 - LSTM
   
-  TODO: ADD HERE
+  A Model with 2 LSTM and 2 dense hidden layers.
   
   - Test accuracy (INCP vectors): 7.35%
   
@@ -208,11 +211,9 @@ This is an example of how to list things you need to use the software and how to
 
 - ResNet50 with Transfer Learning
   
-  TODO: ADD HERE
+  The ResNet50 with an additional output layer to fit the output shape.
   
   - Test accuracy (VGG19 vectors): 10.47%
-
-- 
 
 <!-- ROADMAP -->
 
@@ -233,6 +234,8 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+_Note: The Project was done as part of a AI Bachelor course and it may not be maintained very well!_
+
 <!-- LICENSE -->
 
 ## License
@@ -243,8 +246,7 @@ Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ## Contact
 
-Tristan Bandat - [@TBandat](https://twitter.com/TBandat) - tristan.bandat@gmail.com
-Philipp Meingaßner - p.meingassner@gmail.com
+Tristan Bandat - [@TBandat](https://twitter.com/TBandat) - tristan.bandat@gmail.com <br>Philipp Meingaßner - p.meingassner@gmail.com
 
 Project Link: [https://github.com/TristanBandat/genre-prediction-video](https://github.com/TristanBandat/genre-prediction-video)
 
