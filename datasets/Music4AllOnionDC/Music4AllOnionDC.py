@@ -7,7 +7,7 @@ import numpy as np
 
 _DESCRIPTION = """
 Music4AllOnion DC layer dataset with INCP vectors.
-This dataset has 52 genres based on highest frequency.
+This dataset has 53 genres based on highest frequency.
 Train/Test/Validation = 80% / 10% / 10%
 Shape scaled to (4096,).
 """
@@ -19,7 +19,7 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     """
     VERSION = tfds.core.Version('1.1.0')
     RELEASE_NOTES = {
-        '1.1.0': 'Dataset with INCP vectors and 52 genres.',
+        '1.1.0': 'Dataset with INCP vectors and 53 genres.',
     }
 
     def _info(self) -> tfds.core.DatasetInfo:
@@ -30,7 +30,7 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
             features=tfds.features.FeaturesDict({
                 # These are the features of your dataset like images, labels ...
                 'input': tfds.features.Tensor(shape=(4096,), dtype=np.float32),
-                'label': tfds.features.Tensor(shape=(52,), dtype=np.float32),
+                'label': tfds.features.Tensor(shape=(53,), dtype=np.float32),
             }),
             # If there's a common (input, target) tuple from the
             # features, specify them here. They'll be used if
@@ -58,8 +58,14 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
 
     def _generate_examples(self, df, labels_df):
         """Yields examples."""
-        for i, line in df.iterrows():
-            data = line[1:].to_numpy(dtype=np.float32)
+        for i, line in labels_df.iterrows():
+            label = line[2:].to_numpy(dtype=np.float32)
+
+            try:
+                data = df[df['id'] == line['id']].iloc[:, 1:].to_numpy(dtype=np.float32)[0]
+            except IndexError as e:
+                # print(f'Data with index {i} not found.')
+                continue
 
             # # compress the vgg19 data
             # compressed_data = list()
@@ -75,5 +81,5 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
 
             yield i, {
                 'input': data,
-                'label': labels_df[labels_df['id'] == line['id']].T[2:].T.to_numpy(dtype=np.float32)[0],
+                'label': label,
             }
