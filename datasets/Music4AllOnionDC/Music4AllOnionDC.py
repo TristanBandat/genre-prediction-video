@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 
 _DESCRIPTION = """
-Music4AllOnion DC layer dataset with INCP vectors.
+Music4AllOnion DC layer dataset with ResNet vectors.
 This dataset has 53 genres based on highest frequency.
 Train/Test/Validation = 80% / 10% / 10%
 Shape scaled to (4096,).
@@ -17,9 +17,9 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     """
         DatasetBuilder for Music4AllOnionDC dataset.
     """
-    VERSION = tfds.core.Version('1.1.0')
+    VERSION = tfds.core.Version('2.1.0')
     RELEASE_NOTES = {
-        '1.1.0': 'Dataset with INCP vectors and 53 genres.',
+        '2.1.0': 'Dataset with ResNet vectors and 53 genres.',
     }
 
     def _info(self) -> tfds.core.DatasetInfo:
@@ -43,7 +43,7 @@ class Music4AllOnionDC(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Returns SplitGenerators."""
         path = '../../data/'
-        paths = [path + 'id_incp.tsv', path + 'id_genres_binary_short.tsv']
+        paths = [path + 'id_resnet.tsv', path + 'id_genres_binary_short.tsv']
         splits = [0.8, 0.1, 0.1]
         input_df = pd.read_csv(paths[0], sep='\t')
         labels_df = pd.read_csv(paths[1], sep='\t')
