@@ -5,11 +5,11 @@ from sklearn.tree import DecisionTreeClassifier
 
 
 def main():
-    train_ds = tfds.load('music4_all_onion_dc:1.1.0', data_dir='data/', batch_size=1,
+    train_ds = tfds.load('music4_all_onion_dc:2.1.0', data_dir='data/', batch_size=1,
                          as_supervised=True, split='train')
-    test_ds = tfds.load('music4_all_onion_dc:1.1.0', data_dir='data/', batch_size=1,
+    test_ds = tfds.load('music4_all_onion_dc:2.1.0', data_dir='data/', batch_size=1,
                         as_supervised=True, split='test')
-    valid_ds = tfds.load('music4_all_onion_dc:1.1.0', data_dir='data/', batch_size=1,
+    valid_ds = tfds.load('music4_all_onion_dc:2.1.0', data_dir='data/', batch_size=1,
                          as_supervised=True, split='valid')
 
     xy_train = list(train_ds.as_numpy_iterator())
