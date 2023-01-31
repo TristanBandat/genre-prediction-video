@@ -5,22 +5,31 @@ from sklearn.neighbors import KNeighborsClassifier
 
 
 def main():
-    # train_ds = tfds.load('music4_all_onion_dc:1.0.1', data_dir='data/', batch_size=1,
-    #                      as_supervised=True, split='train')
-    test_ds = tfds.load('music4_all_onion_dc:1.0.1', data_dir='data/', batch_size=1,
+    train_ds = tfds.load('music4_all_onion_dc:3.1.0', data_dir='data/', batch_size=1,
+                         as_supervised=True, split='train')
+    test_ds = tfds.load('music4_all_onion_dc:3.1.0', data_dir='data/', batch_size=1,
                         as_supervised=True, split='test')
-    # valid_ds = tfds.load('music4_all_onion_dc:1.0.1', data_dir='data/', batch_size=1,
-    #                      as_supervised=True, split='valid')
+    valid_ds = tfds.load('music4_all_onion_dc:3.1.0', data_dir='data/', batch_size=1,
+                         as_supervised=True, split='valid')
 
-    Xy = list(test_ds.as_numpy_iterator())
-    X = [x[0][0] for x in Xy]
-    y = [x[1][0] for x in Xy]
+    xy_train = list(train_ds.as_numpy_iterator())
+    x_train = [x[0][0] for x in xy_train]
+    y_train = [x[1][0] for x in xy_train]
+    xy_test = list(test_ds.as_numpy_iterator())
+    x_test = [x[0][0] for x in xy_test]
+    y_test = [x[1][0] for x in xy_test]
+    xy_valid = list(valid_ds.as_numpy_iterator())
+    x_valid = [x[0][0] for x in xy_valid]
+    y_valid = [x[1][0] for x in xy_valid]
+
     model = KNeighborsClassifier(n_neighbors=3)
-    model.fit(X, y)
-    score = model.score(X[:2000], y[:2000])
-    print(score)    # 14.35%
-    score = model.score(X, y)
-    print(score)    # 13,5%
+    model.fit(x_train, y_train)
+    train_score = model.score(x_train, y_train)
+    print(f'Score on train set: {train_score}')
+    test_score = model.score(x_test, y_test)
+    print(f'Score on test set: {test_score}')
+    valid_score = model.score(x_valid, y_valid)
+    print(f'Score on valid set: {valid_score}')
     pass
 
 
